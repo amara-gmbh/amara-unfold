@@ -45,6 +45,8 @@ jobs:
         run: npm run test:dependency-overrides
       - name: Test frontend
         run: npm run test --workspace @amara-unfold/desktop
+      - name: Install browser video dependency
+        run: npx playwright install ffmpeg
       - name: Browser acceptance
         run: npm run test:browser
       - name: Test Rust workspace

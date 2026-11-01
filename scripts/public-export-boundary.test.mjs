@@ -14,8 +14,9 @@ import {
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
-const sourceRoot = path.resolve(new URL("..", import.meta.url).pathname);
+const sourceRoot = fileURLToPath(new URL("..", import.meta.url));
 const exportScript = path.join(
   sourceRoot,
   "scripts",

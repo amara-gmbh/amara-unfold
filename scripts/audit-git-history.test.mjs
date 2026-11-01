@@ -6,9 +6,10 @@ import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
-const auditScript = path.resolve(
-  new URL("audit-git-history.mjs", import.meta.url).pathname,
+const auditScript = fileURLToPath(
+  new URL("audit-git-history.mjs", import.meta.url),
 );
 const company = {
   name: "amara information security GmbH",
