@@ -629,6 +629,9 @@ test("All events restores sibling Diary and Airbnb archives with provider-first 
   await page.getByRole("button", { name: "Choose a folder" }).click();
   await page.getByRole("button", { name: "Choose output folder" }).click();
   await page.getByRole("button", { name: "Create Markdown files" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Your Markdown is ready" }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "All events", exact: true }).click();
 
   const layers = page.getByText("2 active archive layers · 3 providers");
