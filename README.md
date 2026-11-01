@@ -91,6 +91,12 @@ An [Apple silicon Mac preview](https://github.com/amara-gmbh/amara-unfold/releas
 It is ad-hoc signed, not Apple Developer ID signed or notarized; macOS Gatekeeper
 may block it on first launch. The build instructions above create a local debug app.
 
+## Contributing
+
+We welcome contributions to amara Unfold, including new adapters for personal data exports, new features, improvements to existing formats, documentation, accessibility and bug fixes. Open an [issue](https://github.com/amara-gmbh/amara-unfold/issues) to discuss an idea or report a problem, or submit a [pull request](https://github.com/amara-gmbh/amara-unfold/pulls) with your changes.
+
+Please use synthetic examples and keep real personal exports, private files and credentials out of issues, screenshots and code. Contributions should respect Unfold's local-first approach and the project's AGPL-3.0-or-later licence.
+
 ## Licence
 
 The source is licensed under **GNU AGPL-3.0-or-later**. See [LICENSE](LICENSE)
