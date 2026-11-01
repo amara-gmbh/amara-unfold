@@ -59,13 +59,13 @@ and the [privacy model](docs/privacy.md) for details and supported formats.
 
 ## Availability
 
-This README is a local preparation draft. Source and Mac downloads are not yet
-published. Do not add download links until the source, dependencies, packaging,
-signing and privacy checks for the exact release have been completed.
+The source is available here. A signed and notarized Mac download is not yet
+available; the build instructions above create a local debug app.
 
 ## Licence
 
-The source is licensed under **GNU AGPL-3.0-or-later**. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md) for details and third-party notices.
+The source is licensed under **GNU AGPL-3.0-or-later**. See [LICENSE](LICENSE)
+and [NOTICE.md](NOTICE.md) for details and third-party notices.
 
 ---
 
