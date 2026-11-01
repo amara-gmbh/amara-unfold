@@ -1,15 +1,16 @@
-# Amara Unfold Open Event Schema v1
+# amara Unfold Open Event Schema v1
 
 This document defines a standalone, open Markdown event format. Any tool may
-emit, read, validate, or extend it. Amara Unfold is one implementation; Amara
-Memory is an optional consumer and is not required to use the files.
+emit, read, validate, or extend it. amara Unfold is one implementation. amara
+Memory is planned and not available yet; no Memory application or import bridge
+is included or required to use these files.
 
 ## File shape
 
 Each event is one UTF-8 Markdown file. YAML frontmatter is the machine-readable
 record; the Markdown body preserves human-readable source content.
 
-The stable identity lives in frontmatter `id`, not in the filename. Amara
+The stable identity lives in frontmatter `id`, not in the filename. amara
 Unfold filenames use `YYYYMMDD-HHMM-source-readable-title-shortid.md` so files
 sort predictably and remain recognizable outside the application. Consumers
 must not derive event identity or semantics from a filename.
@@ -73,7 +74,7 @@ turn inference into fact.
 ### Manual dating of genuinely undated events
 
 An owner may optionally assign a defensible year, month, day, or day-and-time
-to an event whose original date is `0000-00-00`. Amara Unfold records each set,
+to an event whose original date is `0000-00-00`. amara Unfold records each set,
 later correction, and undo operation in `revisions` using a versioned
 `manual-date-v1` entry. The first entry preserves the original unknown date;
 undo restores that state. Consumers that do not understand the revision entry

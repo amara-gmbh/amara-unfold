@@ -1,23 +1,22 @@
-# Amara Unfold component and runtime manifest
+# amara Unfold component and runtime manifest
 
 ## Product contract
 
-Amara Unfold is an open-source, local-first desktop and command-line tool for
+amara Unfold is an open-source, local-first desktop and command-line tool for
 turning raw personal-data exports into open Markdown. It also maintains an
 optional local SQLite media index and creates deterministic timeline and entity
 indexes over exported events.
 
 It is not a photo viewer, hosted service, sync engine, face recognizer, or
-closed data store. No Amara account is required. Runtime network and telemetry
-are disabled.
+closed data store. No amara account is required. No runtime network feature or
+telemetry is configured. See the [privacy model](privacy.md) for the limits of
+the network-status declaration.
 
 The generated Markdown may be used with a separate locally running LLM or
 document tool selected by the user, but no LLM is bundled or controlled by
-Unfold. Unfold is the intended open preparation and intake step for the
-optional higher Amara Memory experience: a drillable Book, visual Life Map
-layers, evidence-based connections, and grounded navigation to supporting
-records. No live bridge is shipped here, and the open files remain independently
-useful.
+Unfold. amara Memory is planned and not available yet. This release contains
+no Memory application or import bridge. The open files remain independently
+useful, without a future product being required to read them.
 
 ## Distributed binaries
 
@@ -30,7 +29,7 @@ useful.
 - bundled SQLite support;
 - schema migrations;
 - adapter-recognition catalog;
-- icons and Amara brand assets.
+- icons and amara brand assets.
 
 Current binary facts:
 
@@ -38,7 +37,9 @@ Current binary facts:
 - product version: `2026.9.21` (build `202609210800`);
 - bundle identifier: `com.amaramemory.unfold`;
 - target: macOS Apple Silicon `arm64`;
-- minimum design target: macOS 11 or newer;
+- minimum macOS compatibility: unverified for this preview;
+  `bundle.macOS.minimumSystemVersion` is not configured, so the earlier macOS 11
+  design target is not an enforced or tested support guarantee;
 - signing: ad-hoc development seal only; not Developer ID signed or notarized;
 - runtime frameworks: macOS AppKit, WebKit, Foundation, CoreServices,
   CoreGraphics, and other Apple system frameworks;
@@ -81,7 +82,7 @@ The matching source tree contains:
 | Component               | Responsibility                                                     |
 | ----------------------- | ------------------------------------------------------------------ |
 | `apps/desktop`          | React UI, Tauri host, native folder picker, typed IPC              |
-| `crates/core`           | Shared models, repository contracts, deny-by-default network guard |
+| `crates/core`           | Shared models/contracts; network-policy placeholder |
 | `crates/adapters`       | Offline takeout parsers, Markdown writer, timeline builder, CLI    |
 | `crates/scanner`        | Cancellable traversal without following symbolic links             |
 | `crates/extractors`     | Filesystem, image, and EXIF metadata extraction                    |
@@ -207,7 +208,7 @@ Not required:
 Required:
 
 - Xcode Command Line Tools;
-- Node.js `20.19` or newer;
+- Node.js `22.13` or newer;
 - npm dependencies from `package-lock.json`;
 - pinned Rust toolchain with project minimum Rust `1.82`.
 
@@ -235,7 +236,7 @@ cargo build -p amara-unfold-adapters --bin amara-unfold
 - It is unsigned and not notarized.
 - It is a debug build, larger than a final release build.
 - There is no installer or auto-updater.
-- There is no cloud bridge or Amara Memory import implementation.
+- There is no cloud bridge or amara Memory import implementation.
 - NotebookLM export conversion remains unsupported.
 - Podcasts are documented as a future local module candidate; no podcast import
   or service integration exists in this build.

@@ -1,6 +1,6 @@
 # Testing and acceptance strategy
 
-Amara Unfold is tested as four connected layers. No single green browser test
+amara Unfold is tested as four connected layers. No single green browser test
 is allowed to stand in for the native filesystem and database pipeline.
 
 ## Select checks for the change
@@ -47,7 +47,7 @@ evidence.
 
 ## Why browser automation is still useful
 
-Most of Amara Unfold's interface is HTML/CSS/React inside a Tauri WebView. The
+Most of amara Unfold's interface is HTML/CSS/React inside a Tauri WebView. The
 browser suite starts Vite with a test-only desktop adapter and drives installed
 Google Chrome with Playwright. Synthetic scenarios make slow or rare states
 repeatable:
@@ -120,11 +120,12 @@ is not the E2E binary.
 
 ## Public CI
 
-The checked-in reference CI workflow builds and tests on macOS and Windows.
-The same repository-neutral commands must be wired into the selected public
-host. Browser journeys run on both using installed Chrome. The feature-gated
-native WebDriver acceptance runs on macOS, while Windows still compiles/tests
-the Rust and frontend layers.
+Hosted CI is currently disabled for this repository. The checked-in reference
+workflow describes macOS and Windows build/test jobs; it does not establish
+that those jobs have run. It specifies browser journeys using installed Chrome
+on both platforms, feature-gated native WebDriver acceptance on macOS, and
+Rust/frontend checks on Windows. Run the relevant commands locally and retain
+actual results; do not describe workflow configuration as executed acceptance.
 
 For a release candidate, record the source fingerprint and reuse relevant
 accepted build/test results. Run focused checks for any unverified changed
@@ -158,5 +159,7 @@ If old peer-lock entries prevent a coordinated upgrade, preserve the original
 lock, resolve the affected WDIO/WebDriver/expect entries in a disposable local
 workspace, inspect the resulting delta, then verify npm ci. Do not accept a
 fresh broad graph that silently updates unrelated runtime or frontend tools.
-The remaining extract-zip browser-download path and its exact incompatible
-upgrade requirement are documented in build-from-source.md.
+The current override versions and remaining compatibility qualifications are
+documented in [Build from source](build-from-source.md). The checked-in
+lockfile no longer contains extract-zip; this does not replace a fresh advisory
+audit or native compatibility checks.

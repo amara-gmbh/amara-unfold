@@ -1,6 +1,6 @@
 # Security policy
 
-Amara Unfold is maintained by
+amara Unfold is maintained by
 [amara information security GmbH](https://amara.gmbh).
 
 Please do not post sensitive archive paths, metadata, images, personal exports,

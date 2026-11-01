@@ -1,6 +1,6 @@
 # Configuration reference
 
-This document maps the public configuration files that control Amara Unfold.
+This document maps the public configuration files that control amara Unfold.
 It explains ownership and intent; the files themselves remain authoritative.
 
 ## Workspace and dependency configuration
@@ -94,12 +94,15 @@ scripts must pass before a public push or release.
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` runs the public quality gates on macOS and Windows
-after a push to `main` or for a pull request. It has `contents: read`
-permission: it tests an uploaded commit and does not push source changes.
+Hosted CI is currently disabled for this repository.
+`.github/workflows/ci.yml` is a reference configuration for public quality gates
+on macOS and Windows, with push-to-`main` and pull-request triggers defined in
+the file. If enabled, its `contents: read` permission allows it to test an
+uploaded commit, not push source changes. The file alone proves no execution.
 
-The Rust advisory job uses the repository-provided `GITHUB_TOKEN` only for the
-workflow run. Application runtime behavior does not use that token.
+The configured Rust advisory job would use the repository-provided
+`GITHUB_TOKEN` only during a workflow run. Application runtime behavior does
+not use that token.
 
 ## Environment and secrets
 

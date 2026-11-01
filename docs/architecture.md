@@ -2,7 +2,7 @@
 
 ## Goals
 
-Amara Unfold must be understandable by a reviewer who has never seen the
+amara Unfold must be understandable by a reviewer who has never seen the
 project, responsive with large archives, and conservative with personal data.
 The first release therefore separates traversal, extraction, storage,
 candidate rules, UI, and future outbound behavior.
@@ -36,8 +36,10 @@ flag is checked between filesystem entries.
 
 Owns serializable domain models and contracts shared across native modules.
 `IndexRepository`, `SourceImporter`, and `AmaraMemoryBridge` are boundaries,
-not implementations. The `NetworkGuard` denies every outbound intent in this
-release.
+not implementations. `NetworkGuard` supplies the reported local-only status
+and a future policy extension point. Its unused `authorize()` placeholder
+returns a denial, but the app does not route outbound traffic through it; it
+is not an active network firewall.
 
 ### `crates/scanner`
 
@@ -88,20 +90,18 @@ platform keeps its live library behind protected storage. Apple Photos, for
 example, is supported through exported originals or a chosen media folder; the
 current release does not read its protected private library database directly.
 
-## Future Amara Memory bridge
+## Future amara Memory bridge
 
 The bridge trait is present; a bridge implementation is not. Adding one
 requires a review screen that enumerates selected assets and metadata, an
 explicit destination, a single-use consent token, and an auditable local event.
 It must not turn on background synchronization or change local-only defaults.
 
-The open Markdown can also be used independently with a separate locally
-running LLM or document tool chosen by the user; Unfold does not bundle or
-control that tool. Unfold is the intended open preparation and intake layer for
-the optional higher Amara Memory product, which can add a drillable Book,
-visual Life Map layers, evidence-based cross-source connections, and grounded
-navigation back to supporting records. Those experiences must never make Amara
-Memory the owner or sole reader of the files.
+The open Markdown can be used independently with a separate locally running
+LLM or document tool chosen by the user; Unfold does not bundle or control that
+tool. amara Memory is planned and not available yet. This release contains no
+Memory application or import bridge. A future bridge remains a design
+possibility, not an implemented capability or guaranteed import path.
 
 ## Cross-platform choices
 
@@ -109,7 +109,8 @@ Memory the owner or sole reader of the files.
 - no shell commands or macOS-only metadata APIs are required for scanning;
 - SQLite is bundled through `rusqlite`;
 - native selection uses the Tauri dialog plugin;
-- Windows builds are checked in CI from the initial public baseline.
+- the checked-in reference workflow includes Windows build/test jobs; hosted CI
+  is currently disabled, so configuration is not evidence of an executed build.
 
 ## Package publication boundary
 

@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for helping build Amara Unfold. This repository may handle the most
+Thank you for helping build amara Unfold. This repository may handle the most
 personal files people own, so clarity and restraint matter as much as features.
 
 Unfold exists to help people move personal history out of digital fenced

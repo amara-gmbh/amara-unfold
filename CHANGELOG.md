@@ -1,10 +1,19 @@
 # Changelog
 
-All notable public changes to Amara Unfold will be documented here. The format
+All notable public changes to amara Unfold will be documented here. The format
 follows Keep a Changelog. Pre-release app versions use `YYYY.M.D`; macOS bundle
 build numbers use `YYYYMMDDHHMM`.
 
 ## [Unreleased]
+
+### Documentation corrections — 1 November 2026
+
+- Corrected Timeline output, dependency/Node version, UI-label and macOS
+  compatibility descriptions against the checked-in source.
+- Clarified that hosted CI is disabled, NetworkGuard is a status/policy
+  placeholder, and local-app discovery can check other known locations.
+- Described amara Memory as planned and unavailable, and standardized current
+  public prose to the lowercase amara brand while retaining technical names.
 
 ### 2026.9.21 limited-feature release candidate
 

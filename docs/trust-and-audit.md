@@ -1,10 +1,10 @@
 # Trust and audit
 
-Trust is not a slogan for Amara Unfold. Each public claim needs a narrow scope,
+Trust is not a slogan for amara Unfold. Each public claim needs a narrow scope,
 inspectable implementation, a test or audit where practical, and a documented
 limitation where the claim stops.
 
-Amara Unfold’s declared publisher is
+amara Unfold’s declared publisher is
 [amara information security GmbH](https://amara.gmbh). The publisher is
 declared in the JavaScript and Rust package metadata, the Tauri bundle metadata,
 and `NOTICE.md` so source and binaries can present the same identity.
@@ -13,13 +13,13 @@ and `NOTICE.md` so source and binaries can present the same identity.
 
 | Claim                                                       | Inspectable evidence                                                                                                                                                                               |
 | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The current build is local-only                             | `crates/core/src/privacy.rs` denies outbound bridge operations; `docs/privacy.md` defines the boundary; runtime manifests contain no cloud SDK or HTTP client.                                     |
+| The current build is local-only                             | Runtime manifests contain no configured cloud SDK or HTTP client; `docs/privacy.md` distinguishes this from the `NetworkGuard` status/policy placeholder, which is not an active firewall.                                     |
 | A scan starts with explicit user action                     | The Tauri dialog capability and desktop command flow are visible under `apps/desktop/src-tauri/` and `apps/desktop/src/lib/desktop.ts`.                                                            |
 | Originals are not changed                                   | Scanner and adapter code open sources for reading, output is written to a separate selected destination, and tests exercise the pipeline with temporary synthetic data.                            |
 | Folder traversal does not escape through symlinks           | `crates/scanner` rejects symbolic-link traversal and has focused tests.                                                                                                                            |
 | Derived records retain provenance                           | Adapter and Markdown-writer code emit source paths, hashes, deterministic IDs, manifests, and evidence; end-to-end tests verify stable output.                                                     |
 | Public source contains no working memory or personal corpus | `scripts/audit-public-source.mjs` fails on private-data directories, raw export formats, runtime databases, archives, logs, secrets, user paths, sidecars, symlinks, and unreviewed binary assets. |
-| Published dependencies and permissions are reviewable       | Both lockfiles are included; Tauri capabilities are explicit; CI is configured for macOS and Windows.                                                                                              |
+| Published dependencies and permissions are reviewable       | Both lockfiles and explicit Tauri capabilities are included. The reference workflow describes macOS/Windows jobs; hosted CI is currently disabled.                                                                                              |
 | The project can be independently modified                   | The release candidate includes build instructions, the AGPL-3.0-or-later license, and an audited public-source export.                                                                             |
 | The publisher is explicit                                   | Package manifests, Tauri bundle metadata, `NOTICE.md`, and this document identify amara information security GmbH and amaramemory.com.                                                             |
 
@@ -75,8 +75,11 @@ Reviewed application icons, including the canonical root icon master, are the
 only allowed binary assets. Synthetic test inputs are generated inside
 temporary directories instead of being committed as real-looking export files.
 
-CI runs this audit before dependency installation. A pull request cannot rely
-on `.gitignore` alone to hide a sensitive tracked file.
+Hosted CI is currently disabled for this repository. The checked-in reference
+workflow specifies this audit before dependency installation; its presence is
+not evidence that a pull request was checked. Run and record the applicable
+local audits. A pull request cannot rely on `.gitignore` alone to hide a
+sensitive tracked file.
 
 ## Creating a clean public repository
 

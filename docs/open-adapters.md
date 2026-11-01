@@ -1,8 +1,8 @@
 # Open adapter contract
 
-Amara Unfold turns raw personal exports into user-owned Markdown. Amara Memory
-is an optional consumer of that Markdown, not a required runtime or storage
-service.
+amara Unfold turns raw personal exports into user-owned Markdown. amara Memory
+is planned and not available yet. This release includes no Memory application
+or import bridge; the files remain useful independently.
 
 ## Recognition first
 
@@ -25,7 +25,7 @@ Recognition never runs an adapter. It reports:
 
 Adapters are implemented in the open-source `crates/adapters` Rust crate. The
 desktop app and bundled `amara-unfold` command use the same library. Timeline
-modules informed normalization compatibility, but Timeline, Python, Amara
+modules informed normalization compatibility, but Timeline, Python, amara
 Memory, provider accounts, and network access are not runtime dependencies.
 
 An adapter must:
@@ -35,7 +35,7 @@ An adapter must:
 3. preserve original paths and deterministic content hashes;
 4. be idempotent where the source format permits;
 5. expose progress, writes, skips, warnings, and errors;
-6. never require Amara Memory to read the result.
+6. never require amara Memory to read the result.
 
 ## Direct executable offline routes
 
@@ -101,8 +101,9 @@ records were kept out of Timeline. Cancelled and denied reservations remain
 events rather than disappearing from the record.
 
 The desktop app then derives `<destination>/Amara-Unfold-Timeline/` across all
-packages. Event files remain truth. The timeline adds open Markdown navigation,
-CSV, and JSON indexes without creating a database or proprietary dependency.
+packages. Event files remain truth. The timeline adds Markdown navigation and
+`catalog.csv`; its connections and quality report are Markdown files. It does
+not write JSON timeline indexes or create a database or proprietary dependency.
 Its connection rules are deliberately narrow:
 
 - exact shared source date;

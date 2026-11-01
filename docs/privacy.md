@@ -1,14 +1,18 @@
 # Privacy model
 
-Amara Unfold is the trust surface before Amara Memory. Privacy claims are
-implemented as architecture and permissions, not only interface copy.
+amara Unfold processes selected sources locally. amara Memory is planned and
+not available yet; this release contains no Memory application or import
+bridge. Privacy statements below distinguish implemented behavior from status
+declarations and future extension points.
 
-## Current guarantees
+## Current behavior and boundaries
 
 - no HTTP client is included in the runtime dependency graph;
 - no analytics, telemetry, crash upload, auto-update, or cloud SDK is configured;
-- the network guard denies every outbound intent;
-- folder access begins with a native, user-initiated selection;
+- `NetworkGuard` reports the local-only status and provides a placeholder for
+  future outbound policy; it is not an active network firewall;
+- source-content scanning and extraction begin with an explicit selection;
+  local-app discovery can check other known locations as described below;
 - the scanner does not follow symbolic links;
 - originals are opened read-only and never copied, renamed, or deleted;
 - index writes go to a local SQLite database in the OS app-data directory;
@@ -16,6 +20,29 @@ implemented as architecture and permissions, not only interface copy.
 - cancelled scans preserve the previous complete index;
 - CSP and Tauri capabilities are explicit and narrow;
 - local databases and environment files are excluded from version control.
+
+### Local-app discovery is separate from content import
+
+At startup, the app requests discovery without user-location inspection, while
+standard installed-application checks can still occur. Choosing **Refresh app
+exports**, or preparing Mail export discovery, enables checks of known
+Calendar/Contacts export folders and the prepared Mail export folder. These
+checks can inspect directory names, file extensions, and MBOX package shape.
+The same discovery call also checks whether known Messages, Notes, and Journal
+locations exist, even when a different app export is the one of interest. It
+does not import their contents or enable those unavailable import routes.
+
+After Mail export preparation, discovery can repeat while waiting for the
+export or when the app regains focus. Reading source records for conversion
+still requires choosing the relevant source and starting extraction.
+
+### Network status is not network enforcement
+
+The application calls `NetworkGuard.status()`. Its `authorize()` method always
+returns a denial, but that method is a placeholder exercised by a unit test,
+not a runtime interception point for outbound traffic. The local-only
+description rests on the configured runtime features, dependencies, CSP and
+Tauri capabilities; a reported off state is not a general firewall guarantee.
 
 ## Data stored locally
 

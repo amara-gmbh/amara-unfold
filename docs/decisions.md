@@ -1,15 +1,16 @@
 # Design and decision record
 
 This is the curated public rationale for the choices that materially shape
-Amara Unfold. It is not a transcript. Decisions affecting public behavior must
+amara Unfold. It is not a transcript. Decisions affecting public behavior must
 be understandable here, in the changelog, in a public contract, or in source
 and tests without requiring access to private development conversations.
 
 ## D001 — Local-first is the default trust boundary
 
 **Decision:** Source data is processed on the user's computer. The current
-runtime denies outbound network intent and includes no telemetry, analytics,
-background synchronization, account requirement, or cloud extraction service.
+runtime has no configured telemetry, analytics, background synchronization,
+account requirement, or cloud extraction service. `NetworkGuard` is a status
+and future-policy extension point, not active outbound-traffic enforcement.
 
 **Why:** Personal exports can contain an unusually complete picture of a life.
 Local processing reduces unnecessary disclosure and lets users inspect the
@@ -21,9 +22,11 @@ and documentation. See [Privacy model](privacy.md).
 
 ## D002 — The user chooses the source boundary
 
-**Decision:** Unfold opens only an explicitly selected file, folder, or
-supported application export route. Recursive scanning does not follow
-symbolic links.
+**Decision:** Content scanning and extraction use an explicitly selected file,
+folder, or supported application export route. Local-app discovery may also
+check known app and export locations, including existence checks for other
+app categories; see [Privacy model](privacy.md). Recursive source scanning does
+not follow symbolic links.
 
 **Why:** Convenience must not become silent filesystem surveillance or cross a
 boundary the user did not select.
@@ -37,7 +40,7 @@ direct access to private application databases.
 Small YAML/CSV indexes may support deterministic validation or navigation.
 
 **Why:** The output should remain readable, searchable, editable, portable, and
-useful without Amara software.
+useful without amara software.
 
 **Consequences:** Machine-oriented files must justify their existence. The
 event contract is public in [Open Event Schema v1](schema-v1.md).
@@ -175,14 +178,15 @@ buildable without publishing a user's life or internal recovery material.
 **Consequences:** `.gitignore` is only the first gate. Content and reachable
 history audits must also pass. See [Trust and audit](trust-and-audit.md).
 
-## D015 — Unfold remains useful without Amara Memory
+## D015 — Unfold remains useful without amara Memory
 
-**Decision:** Unfold is the open preparation layer for optional Amara Memory,
-but its files and Timeline must remain independently useful.
+**Decision:** Unfold's files and Timeline remain independently useful. amara
+Memory is planned and not available yet; this release contains no Memory
+application or import bridge.
 
 **Why:** A path into a richer experience should not recreate platform lock-in.
 
-**Consequences:** No Amara account is required, no live bridge is claimed in
+**Consequences:** No amara account is required, no live bridge is claimed in
 the current build, and another local tool may read the open files.
 
 ## D016 — Public source is allowlisted and history is independently gated

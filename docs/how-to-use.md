@@ -1,9 +1,9 @@
-# How to use Amara Unfold
+# How to use amara Unfold
 
-Amara Unfold inspects folders on your computer and builds a private index. It
-does not move originals or send anything to Amara Memory.
+amara Unfold inspects folders on your computer and builds a private index. It
+does not move originals or send anything to amara Memory.
 
-## Why use Amara Unfold?
+## Why use amara Unfold?
 
 A downloaded archive gives you data, but rarely gives you a usable memory of
 your life. Years of dates, places, photos, messages, listening, travel, and
@@ -34,19 +34,11 @@ tools, and to future memory experiences.
    richness can be surprising once formerly scattered sources are readable
    together. Verify interpretations against the cited records, and make sure
    the chosen tool does not upload or cloud-index the files.
-3. When ready, continue with Amara Memory as the richer experience built on the
-   open foundation Unfold prepared.
 
-Amara Memory is intended to go beyond chat with documents. Its role is to
-organize time into a drillable Book, show people, places, photos, journeys,
-music, mail, diary, and other chosen domains as visual Life Map layers, surface
-evidence-based connections across sources, and let grounded answers lead back
-to supporting records and the visual context they describe.
-
-Unfold is the intended open-source preparation step for Amara Memory, but this
-is not yet a live integration. The present build contains no LLM, Amara Memory
-bridge, cloud sync, or Amara account. Continuing remains voluntary and the
-generated files remain independently useful.
+amara Memory is planned and not available yet. This release contains no Memory
+application or import bridge, and no Memory handoff can be performed from this
+build. The open files remain useful independently. The present build also
+contains no bundled LLM, cloud sync or amara account.
 
 ## Open the current macOS build
 
@@ -106,14 +98,17 @@ not working import routes and should not be described as "coming soon":
 
 ## Extract an archive or local app export
 
-1. On Home or Scan, choose **Choose a folder**. The native folder picker opens directly.
+1. On Home, choose **Choose a folder** (or **Scan another folder** when an
+   archive is already present). On Scan, use **Choose raw file** or **Choose raw
+   folder** for the corresponding native picker.
 2. Select a raw export, mixed Takeout folder, existing Markdown archive, or
    exported local-app package such as an Apple Mail `.mbox`.
 3. Review every locally recognized route. A mixed Google Takeout can expose
    Google Photos, Gmail, YouTube, and KMZ as separate routes.
 4. Choose a local destination folder.
-5. Choose **Create all N exports** for a multi-service Takeout, or **Create
-   selected export** for one route.
+5. For a single recognized route, choose **Create Markdown files**. When
+   several routes are recognized, choose **Create all N exports** for all of
+   them or **Create selected export** for the selected route.
 6. Leave the app open while it reports the active export, records read, Markdown files written,
    unchanged events, and errors. After extraction, Unfold builds one cross-source timeline.
 
@@ -133,7 +128,8 @@ Packages are grouped under `<destination>/<service>/<export-date>/`. Each one co
 - `events/YYYY/MM/*.md` with schema-v1 YAML frontmatter, readable bodies, and
   filenames containing the event title plus a stable short ID.
 
-The Markdown works without Unfold and can be imported into Amara Memory later.
+The Markdown works without Unfold. A possible future amara Memory connection
+is a plan, not an available or guaranteed import route.
 
 ## Use local app sources
 
@@ -320,10 +316,11 @@ The app labels metadata as observed fact and explicitly says when it has not
 named an event or identified the people shown.
 
 Use **Export open Markdown** to choose a local folder. Unfold writes a readable
-`README.md` and one Amara Unfold Open Event Schema v1 event file per indexed
+`README.md` and one amara Unfold Open Event Schema v1 event file per indexed
 media file under `photos/library/YYYY/MM/DD/`. The export includes SHA-256
-provenance hashes for Amara Memory compatibility and retains Unfold's BLAKE3
-index hashes. It does not copy the photos and does not require Amara Memory.
+provenance hashes for the open schema and retains Unfold's BLAKE3 index hashes.
+It does not copy the photos. amara Memory is planned and unavailable; this
+export does not establish compatibility with a released Memory application.
 
 ### Source history
 
@@ -372,7 +369,7 @@ original media.
 
 ## Current limitations
 
-- no upload, cloud sync, or Amara Memory bridge;
+- no upload, cloud sync, or amara Memory bridge;
 - no face recognition or AI-written stories;
 - video duration is not yet extracted;
 - HEIC files are recognized, but dimensions/EXIF depend on decoder support;

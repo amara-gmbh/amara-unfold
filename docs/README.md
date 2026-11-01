@@ -1,6 +1,6 @@
-# Amara Unfold documentation
+# amara Unfold documentation
 
-This is the public table of contents for Amara Unfold. Start with the reading
+This is the public table of contents for amara Unfold. Start with the reading
 path that matches what you want to do, then use the complete catalogue below.
 
 ## First reads
@@ -36,7 +36,7 @@ path that matches what you want to do, then use the complete catalogue below.
 
 ## Use and output
 
-- [How to use Amara Unfold](how-to-use.md) — source selection, recognition,
+- [How to use amara Unfold](how-to-use.md) — source selection, recognition,
   extraction, Timeline, All events, Photo drafts, settings, and troubleshooting.
 - [Open Event Schema v1](schema-v1.md) — portable Markdown frontmatter,
   date precision, provenance, manual dating, and compatibility rules.

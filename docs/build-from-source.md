@@ -1,6 +1,6 @@
 # Build from source
 
-The repository is sufficient to inspect, test, and build Amara Unfold. A
+The repository is sufficient to inspect, test, and build amara Unfold. A
 compiled `.app` is a release artifact and is intentionally not committed to the
 source tree.
 
@@ -108,14 +108,12 @@ rust-version declaration does not certify the complete resolved dependency
 graph on that minimum compiler. A clean-machine minimum-version check has not
 been performed for this candidate.
 
-The September 7 workbook security batch upgrades calamine to 0.36.1 and
-removes the unused direct quick-xml dependency. The resolved graph now contains
-only quick-xml 0.41.0, closing
-[RUSTSEC-2026-0194](https://rustsec.org/advisories/RUSTSEC-2026-0194.html) and
-[RUSTSEC-2026-0195](https://rustsec.org/advisories/RUSTSEC-2026-0195.html).
-The changed calamine, ZIP, integer parsing and path dependency versions have no
-OSV matches in the scoped check. Unchanged GTK/glib Linux-target advisories and
-unmaintained proc-macro-error/unic dependencies remain tracked upstream work.
+The earlier workbook security batch removed the unused direct quick-xml
+dependency. The current `Cargo.lock` resolves both quick-xml `0.41.0` and
+`0.42.0` through different dependency paths; it does not contain only one
+quick-xml version. Historical scoped advisory checks do not establish the
+current security status of the complete graph. Review the matching lockfile
+with current advisory data rather than treating a version line as a fresh audit.
 
 WDIO 9 components and their expectation peer are updated together; the Tauri
 service's older exact webdriverio pin is constrained to 9.31.6 so the graph
@@ -123,17 +121,17 @@ contains only the fixed deepmerge-ts 8.0.2. A single existing native harness
 launch check verifies the peer/service integration; broader importer acceptance
 is separate. Unrelated frontend and production npm versions remain unchanged.
 
-The September 2026 npm audit result was 13 high package findings propagated from
-one root advisory: extract-zip 2.0.1 through @puppeteer/browsers 2.13.2 and
-WDIO's browser-download helpers. It is development tooling, absent from the
-production dependency graph and installed runtime. The latest extract-zip
-release is still affected. @puppeteer/browsers 3.2.2 removes that dependency,
-but is outside WDIO's supported ^2.2.0 range and requires Node >=22.12, above
-this project's >=20.19 minimum. Do not force that major override, a tauri-service
-downgrade or legacy peer resolution. Use the embedded Tauri driver for current
-native checks; avoid those browser-download helpers with untrusted ZIPs.
-Upstream WDIO support for the replacement is the concrete remaining compatible
-fix path. See [the advisory](https://github.com/advisories/GHSA-jmr9-qjv8-65gv).
+The current JavaScript requirement is Node.js `22.13` or newer. The checked-in
+lockfile resolves `@puppeteer/browsers` `3.2.6`, glob `14.0.3`, and minimatch
+`11.0.3` using the overrides in `package.json`. It contains no extract-zip
+package, so the old extract-zip/Node-20 compatibility paragraph no longer
+describes this source revision.
+
+Some overrides cross upstream declared major-version ranges. Their interfaces
+need the focused dependency-override checks and native-test verification
+described below. Lockfile inspection is not a fresh npm advisory audit or a
+claim that every dependency is vulnerability-free. Preserve npm peer checks; do
+not use force or legacy peer resolution to conceal incompatibilities.
 
 Version `2026.9.21` is a limited-feature GitHub release candidate. The public
 source route is the canonical GitHub repository after its final privacy/history

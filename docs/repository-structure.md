@@ -1,6 +1,6 @@
 # Repository, build, and app structure
 
-Amara Unfold has four deliberately separate layers: editable source, generated
+amara Unfold has four deliberately separate layers: editable source, generated
 build files, the compiled application, and the user's runtime data. Only the
 first layer belongs in the public source repository.
 
@@ -49,7 +49,7 @@ amaraUnfold/
 ├── assets/                   Editable brand artwork
 ├── crates/
 │   ├── adapters/             Input recognition and Markdown generation
-│   ├── core/                 Models, interfaces, and network guard
+│   ├── core/                 Models, interfaces, and network-policy placeholder
 │   ├── db/                   SQLite repository and migration
 │   ├── extractors/           Local metadata extraction
 │   ├── memory/               Deterministic evidence rules

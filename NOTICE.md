@@ -1,13 +1,13 @@
 # Publisher notice
 
-**Product:** Amara Unfold  
-**Publisher:** amara information security GmbH  
-**Website:** [amara GmbH](https://amara.gmbh)  
+**Product:** amara Unfold\
+**Publisher:** amara information security GmbH\
+**Website:** [amara GmbH](https://amara.gmbh)\
 **Product website:** [amara Unfold](https://amaraunfold.de)
 
-Copyright © 2026 amara information security GmbH and Amara Unfold contributors.
+Copyright © 2026 amara information security GmbH and amara Unfold contributors.
 
-Amara Unfold is free and open-source software licensed under the GNU Affero
+amara Unfold is free and open-source software licensed under the GNU Affero
 General Public License v3.0 or later. See `LICENSE` for the license terms and
 `SECURITY.md` for responsible vulnerability reporting.
 

@@ -1,10 +1,10 @@
-# Amara Unfold transfer package
+# amara Unfold transfer package
 
 Start here after copying this package to another Mac.
 
-Amara Unfold is a local, offline archive utility. It converts supported raw
+amara Unfold is a local, offline archive utility. It converts supported raw
 personal-data exports into readable, user-owned Markdown and builds a derived
-timeline over those files. It does not require an Amara account, cloud service,
+timeline over those files. It does not require an amara account, cloud service,
 database server, Node.js, or Rust to run the supplied binaries.
 
 ## Package contents
@@ -123,7 +123,7 @@ Treat this as the package promise:
 
 The supplied binaries are enough to run the current functionality. They are
 not enough to modify, rebuild, audit, or port the application. For code changes,
-obtain the matching Amara Unfold source tree and follow the source-build section
+obtain the matching amara Unfold source tree and follow the source-build section
 in `COMPONENTS.md`.
 
 Read `LLM-INSTRUCTIONS.md` before allowing an LLM to operate the package.

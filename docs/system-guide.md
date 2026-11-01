@@ -1,11 +1,11 @@
-# Amara Unfold: A-to-Z system guide
+# amara Unfold: A-to-Z system guide
 
-This guide explains how Amara Unfold works as one complete system. It links to
+This guide explains how amara Unfold works as one complete system. It links to
 the narrower contracts where implementation or operating detail belongs.
 
 ## 1. Purpose
 
-Amara Unfold converts user-selected platform exports and local application
+amara Unfold converts user-selected platform exports and local application
 exports into readable, portable Markdown. It preserves useful content,
 provenance, source dates, stable identities, and quality information without
 turning a person's archive into a hosted service.
@@ -16,8 +16,9 @@ The product has two complementary outputs:
 2. a selective cross-source Timeline containing defensible dated events.
 
 Static reference material remains available without being promoted into a
-false life event. The output works independently and is also intended as the
-open preparation layer for an optional future Amara Memory experience.
+false life event. The output works independently. amara Memory is planned and
+not available yet; this release contains no Memory application or import
+bridge. A possible future connection is not required to use the files.
 
 ## 2. User journey
 
@@ -127,7 +128,7 @@ native behavior must use the actual rebuilt Mac application.
 | `apps/desktop/src`           | React views, interaction, formatting, and desktop bridge           |
 | `apps/desktop/src-tauri/src` | Native commands, source discovery, recognition, state, and IPC     |
 | `crates/adapters`            | Source parsers, Markdown writer, Timeline, validation, and CLI     |
-| `crates/core`                | Shared contracts, models, and deny-by-default network guard        |
+| `crates/core`                | Shared contracts, models, and network-policy placeholder        |
 | `crates/scanner`             | Cancellable traversal and hashing without following symbolic links |
 | `crates/extractors`          | Local filesystem/image/EXIF metadata extraction                    |
 | `crates/db`                  | Bundled SQLite repository and ordered migrations                   |
@@ -139,9 +140,13 @@ The detailed runtime boundaries are in [Architecture](architecture.md).
 
 ## 9. Local storage and privacy
 
-The application opens only a user-selected source. It does not roam the disk,
-follow symbolic links out of scope, upload source material, perform telemetry,
-or require an account. The current runtime denies outbound network intent.
+Content scanning and extraction operate on a user-selected source. Local-app
+discovery separately checks known application/export locations and can check
+whether other app folders exist; [Privacy model](privacy.md) describes the
+scope and Mail discovery lifecycle. The scanner does not follow symbolic links
+out of scope, and no upload, telemetry or account feature is configured.
+`NetworkGuard` reports status and reserves a future policy boundary; it is not
+a runtime firewall or active interception of outbound requests.
 
 SQLite stores a rebuildable private index in the operating system's application
 data directory. Generated Markdown is written only to the destination selected

@@ -1,14 +1,15 @@
-# Instructions for the LLM operating Amara Unfold on another Mac
+# Instructions for the LLM operating amara Unfold on another Mac
 
 ## Role
 
-You are operating a transferred Amara Unfold binary package. Your job is to
+You are operating a transferred amara Unfold binary package. Your job is to
 verify it, explain it, launch it when requested, and help the user convert an
 explicitly selected personal-data export into open Markdown without changing
 the source data.
 
-Do not treat this package as a cloud product or as Amara Memory itself. Amara
-Memory is only a possible downstream consumer of the exported Markdown.
+Do not treat this package as a cloud product or as amara Memory. amara Memory
+is planned and not available yet. This release contains no Memory application
+or import bridge; a future consumer is only a design possibility.
 
 ## Read order
 
@@ -86,7 +87,7 @@ running solely because `open` returned successfully.
 
 ## Preferred app workflow
 
-1. Open Amara Unfold.
+1. Open amara Unfold.
 2. Choose **Choose a folder**.
 3. Let Unfold inspect only that selected folder.
 4. Review the recognized adapter routes with the user.
@@ -149,9 +150,11 @@ Each event is schema-v1 Markdown with YAML frontmatter, a human-readable body,
 deterministic ID, source path, SHA-256 provenance hash, and no copied original.
 
 The destination-level `Amara-Unfold-Timeline` contains day/month/year indexes,
-an undated register, `catalog.csv`, entity indexes, Markdown/JSON connections,
-and Markdown/JSON quality reports. It is derived and rebuildable. The linked
-event Markdown remains the evidence source.
+an undated register, `catalog.csv`, entity indexes, `connections.md`, and
+`quality-report.md`. These Timeline outputs are not also written as JSON.
+Individual adapter packages can separately contain `quality-report.json`. The
+Timeline is derived and rebuildable. The linked event Markdown remains the
+evidence source.
 
 ## Troubleshooting order
 

@@ -1,6 +1,6 @@
 # Code of conduct
 
-Amara Unfold contributors must make participation respectful, safe, and useful.
+amara Unfold contributors must make participation respectful, safe, and useful.
 Harassment, intimidation, discrimination, sexualized conduct, deliberate
 misgendering, publication of private information, and sustained disruption are
 not acceptable in project spaces.
