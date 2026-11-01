@@ -830,6 +830,9 @@ test("manually dates, corrects, and undoes a genuinely undated event", async ({
   await page.getByRole("button", { name: "Choose a folder" }).click();
   await page.getByRole("button", { name: "Choose output folder" }).click();
   await page.getByRole("button", { name: "Create Markdown files" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Your Markdown is ready" }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "All events", exact: true }).click();
 
   await page.getByRole("button", { name: /Undated — review queue/ }).click();
