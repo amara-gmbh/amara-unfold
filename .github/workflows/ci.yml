@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@f08ac54821369508305fcb9e0121ec6e30ae9ada # 1.97.0
+        with:
+          components: clippy, rustfmt
+      - name: Audit public source and history
+        run: npm run audit:public && npm run audit:history
+      - name: Install frontend dependencies
+        run: npm ci
+      - name: Audit dependency licenses
+        run: npm run audit:licenses
+      - name: Check formatting
+        run: npm run format:check
+      - name: Audit JavaScript advisories
+        run: npm audit --audit-level=low
+      - name: Check frontend
+        run: npm run build
+      - name: Test dependency overrides
+        run: npm run test:dependency-overrides
+      - name: Test frontend
+        run: npm run test --workspace @amara-unfold/desktop
+      - name: Browser acceptance
+        run: npm run test:browser
+      - name: Test Rust workspace
+        run: cargo test --workspace
+      - name: Lint Rust workspace
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Native Tauri acceptance
+        if: runner.os == 'macOS'
+        run: npm run test:native
+  rust-advisories:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@f08ac54821369508305fcb9e0121ec6e30ae9ada # 1.97.0
+      - name: Install cargo-audit
+        run: cargo install cargo-audit --version 0.22.2 --locked
+      - name: Audit Rust advisories
+        run: cargo audit

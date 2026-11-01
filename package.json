@@ -1,0 +1,66 @@
+{
+  "name": "amara-unfold",
+  "version": "2026.9.21",
+  "private": true,
+  "author": "amara information security GmbH",
+  "homepage": "https://amara.gmbh",
+  "workspaces": [
+    "apps/desktop"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @amara-unfold/desktop",
+    "dev:e2e": "npm run dev:e2e --workspace @amara-unfold/desktop",
+    "build": "npm run build --workspace @amara-unfold/desktop",
+    "check": "npm run check --workspace @amara-unfold/desktop && cargo check --workspace",
+    "test": "npm run test:dependency-overrides && npm run test --workspace @amara-unfold/desktop && cargo test --workspace",
+    "test:browser": "playwright test --config tests/browser/playwright.config.ts",
+    "test:browser:ui": "playwright test --config tests/browser/playwright.config.ts --ui",
+    "build:native-e2e": "cross-env VITE_WDIO=1 npm run tauri -- build --debug --no-bundle --features e2e --config src-tauri/tauri.e2e.conf.json",
+    "test:native": "npm run build:native-e2e && wdio run tests/native/wdio.conf.ts",
+    "lint": "npm run lint --workspace @amara-unfold/desktop && cargo clippy --workspace --all-targets -- -D warnings",
+    "format": "prettier --write . && cargo fmt --all",
+    "format:check": "prettier --check . && cargo fmt --all -- --check",
+    "audit:public": "node --test scripts/public-export-boundary.test.mjs && node scripts/audit-public-source.mjs",
+    "test:public-boundary": "node --test scripts/public-export-boundary.test.mjs",
+    "audit:history": "node --test scripts/audit-git-history.test.mjs && node scripts/audit-git-history.mjs",
+    "audit:licenses": "node scripts/generate-license-report.mjs --check",
+    "licenses:generate": "node scripts/generate-license-report.mjs",
+    "uat:local-apps": "node scripts/local-app-uat-status.mjs",
+    "uat:mail-export": "node scripts/check-mail-export-uat.mjs",
+    "uat:mail-export:watch": "node scripts/watch-mail-export-uat.mjs",
+    "uat:mail-export:run": "node scripts/run-mail-export-uat.mjs",
+    "export:public": "node scripts/create-public-source.mjs",
+    "tauri": "npm run tauri --workspace @amara-unfold/desktop --",
+    "build:app:debug": "npm run tauri -- build --debug --bundles app && codesign --verify --deep --strict 'target/debug/bundle/macos/Amara Unfold.app'",
+    "package:macos-transfer": "sh scripts/package-macos-transfer.sh",
+    "test:deep": "npm run audit:public && npm run audit:history && npm run audit:licenses && npm run format:check && npm run build && npm run test && npm run lint && npm run test:browser && npm run test:native && npm audit --audit-level=low && npm run build:app:debug",
+    "test:dependency-overrides": "node scripts/test-dependency-overrides.mjs"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "overrides": {
+    "@wdio/native-utils": "^2.8.1",
+    "@wdio/tauri-service": {
+      "webdriverio": "9.31.6"
+    },
+    "@wdio/utils": {
+      "@puppeteer/browsers": "^3.2.6"
+    },
+    "glob": "^14.0.3",
+    "minimatch": "^11.0.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
+    "@wdio/cli": "^9.31.6",
+    "@wdio/globals": "^9.31.3",
+    "@wdio/jasmine-framework": "^9.31.6",
+    "@wdio/local-runner": "^9.31.6",
+    "@wdio/spec-reporter": "^9.27.1",
+    "@wdio/tauri-plugin": "^1.2.0",
+    "@wdio/tauri-service": "^1.2.0",
+    "cross-env": "^10.1.0",
+    "expect-webdriverio": "^6.0.10"
+  }
+}

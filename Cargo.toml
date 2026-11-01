@@ -1,0 +1,48 @@
+[workspace]
+resolver = "2"
+members = [
+  "apps/desktop/src-tauri",
+  "crates/adapters",
+  "crates/core",
+  "crates/db",
+  "crates/extractors",
+  "crates/memory",
+  "crates/scanner",
+]
+
+[workspace.package]
+version = "2026.9.21"
+edition = "2021"
+authors = ["amara information security GmbH"]
+license = "AGPL-3.0-or-later"
+homepage = "https://amara.gmbh"
+rust-version = "1.97"
+
+[workspace.dependencies]
+blake3 = "1.5"
+calamine = { version = "0.37.0", features = ["dates"] }
+chrono = { version = "0.4", features = ["serde"] }
+codepage-strings = "1"
+compressed-rtf = "1.0.1"
+csv = "1.3"
+html-escape = "0.2"
+id3 = { version = "=1.16.4", default-features = false }
+mailparse = "0.16"
+outlook-pst = "1.2.0"
+roxmltree = "0.20"
+rusqlite = { version = "0.32", features = ["bundled", "chrono"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+sha2 = "0.10"
+tempfile = "3.14"
+thiserror = "2"
+walkdir = "2.5"
+zip = { version = "9.0", default-features = false, features = ["deflate"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

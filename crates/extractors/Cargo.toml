@@ -1,0 +1,17 @@
+[package]
+name = "amara-unfold-extractors"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+amara-unfold-core = { path = "../core" }
+kamadak-exif = "0.6"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp"] }
+serde_json.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

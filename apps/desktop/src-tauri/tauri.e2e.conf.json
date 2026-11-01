@@ -1,0 +1,26 @@
+{
+  "productName": "Amara Unfold E2E",
+  "identifier": "com.amaramemory.unfold.e2e",
+  "app": {
+    "withGlobalTauri": true,
+    "security": {
+      "capabilities": [
+        "default",
+        {
+          "identifier": "e2e",
+          "description": "Test-only permissions for the feature-gated WebDriver build.",
+          "windows": ["main"],
+          "permissions": ["wdio:default", "wdio-webdriver:default"]
+        }
+      ]
+    },
+    "windows": [
+      {
+        "title": "Amara Unfold E2E"
+      }
+    ]
+  },
+  "bundle": {
+    "active": false
+  }
+}

@@ -1,0 +1,19 @@
+[package]
+name = "amara-unfold-db"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+amara-unfold-core = { path = "../core" }
+chrono.workspace = true
+rusqlite.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+amara-unfold-memory = { path = "../memory" }
+amara-unfold-scanner = { path = "../scanner" }
+tempfile.workspace = true

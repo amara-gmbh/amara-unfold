@@ -1,0 +1,18 @@
+[package]
+name = "amara-unfold-scanner"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+amara-unfold-core = { path = "../core" }
+amara-unfold-extractors = { path = "../extractors" }
+blake3.workspace = true
+chrono.workspace = true
+walkdir.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

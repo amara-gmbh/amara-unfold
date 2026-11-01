@@ -1,0 +1,6 @@
+dist
+node_modules
+target
+apps/desktop/src-tauri/gen
+package-lock.json
+docs/third-party-licenses.md

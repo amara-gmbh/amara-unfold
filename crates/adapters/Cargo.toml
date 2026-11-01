@@ -1,0 +1,32 @@
+[package]
+name = "amara-unfold-adapters"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+description = "Offline open-data adapters that normalize personal exports to portable Markdown"
+
+[dependencies]
+amara-unfold-core = { path = "../core" }
+amara-unfold-scanner = { path = "../scanner" }
+calamine.workspace = true
+chrono.workspace = true
+codepage-strings.workspace = true
+compressed-rtf.workspace = true
+csv.workspace = true
+html-escape.workspace = true
+id3.workspace = true
+mailparse.workspace = true
+outlook-pst.workspace = true
+roxmltree.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+walkdir.workspace = true
+zip.workspace = true
+
+tempfile.workspace = true

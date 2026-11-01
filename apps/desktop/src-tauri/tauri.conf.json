@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Amara Unfold",
+  "version": "2026.9.21",
+  "identifier": "com.amaramemory.unfold",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "security": {
+      "capabilities": ["default"],
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' ipc: http://ipc.localhost"
+    },
+    "windows": [
+      {
+        "title": "Amara Unfold",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 980,
+        "minHeight": 680,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true
+      }
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "publisher": "amara information security GmbH",
+    "homepage": "https://amara.gmbh",
+    "copyright": "Copyright © 2026 amara information security GmbH",
+    "macOS": {
+      "bundleVersion": "202609210800",
+      "signingIdentity": "-"
+    },
+    "category": "Utility",
+    "shortDescription": "Inspect personal archives locally, before anything leaves your device.",
+    "longDescription": "Amara Unfold is a local-first archive inspector and memory candidate workspace for Amara Memory.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

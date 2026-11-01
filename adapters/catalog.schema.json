@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amaramemory.com/schemas/unfold-adapter-catalog-v1.json",
+  "title": "Amara Unfold adapter catalog",
+  "type": "object",
+  "required": ["catalogVersion", "outputContract", "adapters"],
+  "properties": {
+    "catalogVersion": { "const": 1 },
+    "outputContract": { "type": "string" },
+    "adapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "provider",
+          "moduleId",
+          "stage",
+          "format",
+          "readiness",
+          "signatures",
+          "nextStep"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "provider": { "type": "string" },
+          "moduleId": { "type": "string" },
+          "stage": {
+            "enum": ["raw_export", "open_markdown", "mixed"]
+          },
+          "format": { "type": "string" },
+          "readiness": {
+            "enum": ["ready", "needs_preparation", "already_open"]
+          },
+          "signatures": {
+            "type": "object",
+            "properties": {
+              "nameContains": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "anyPaths": { "type": "array", "items": { "type": "string" } },
+              "allPaths": { "type": "array", "items": { "type": "string" } },
+              "anyExtensions": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "archivePaths": { "type": "array", "items": { "type": "string" } }
+            },
+            "additionalProperties": false
+          },
+          "commandTemplate": { "type": ["string", "null"] },
+          "nextStep": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

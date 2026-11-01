@@ -1,0 +1,138 @@
+# Local-app intake testing
+
+This guide defines public acceptance checks for amara Unfold's application
+routes. Use synthetic fixtures for repository tests. A person may validate a
+route with their own export locally, but their source data, generated Markdown,
+paths, screenshots, counts, and reports must remain outside the public source
+tree and Git history.
+
+## Release routes
+
+The limited-feature release exposes these application-export routes:
+
+- Apple Photos exported folders;
+- Calendar `.ics` exports;
+- Contacts `.vcf` exports;
+- Apple Mail exported `.mbox` packages;
+- Apple Music local-library metadata or exported TSV data.
+
+PST and direct Immich-library intake are not registered release routes. Tests
+for dormant implementation code do not make either route a product promise.
+
+## Evidence levels
+
+Automated unit, browser, native, and CLI checks are supporting evidence. Final
+application acceptance is a visible journey through normal controls in the
+candidate app. Record only non-sensitive release facts in a public report:
+
+- version and build number;
+- candidate checksum;
+- synthetic fixture identifier;
+- expected and observed visible behavior;
+- pass, fail, or blocked status;
+- signing and notarization status.
+
+Do not publish a local username, absolute path, private-library count, message
+content, contact detail, calendar entry, media metadata, or generated archive.
+
+## Common visible journey
+
+For each applicable route:
+
+1. Start with an empty output directory and a documented synthetic fixture.
+2. Choose the source through the visible Scan interface.
+3. Confirm that recognition names the expected format before extraction.
+4. Refuse the consent dialog once and verify that no output is created.
+5. Repeat, accept consent, and choose the output directory.
+6. Check the completion summary, quality result, provenance, and generated
+   Markdown through the normal interface and filesystem.
+7. Run the same extraction again and verify that retained files and events are
+   reported as unchanged, with no duplicate output.
+8. Where cancellation is available, cancel once and verify that the previous
+   complete output remains usable; then retry successfully.
+
+The route passes only when the visible result and the generated package agree.
+A browser preview alone cannot establish native filesystem, permission, IPC, or
+bundle behavior.
+
+## Route-specific checks
+
+### Apple Photos export
+
+- Select an exported folder rather than a live Photos library.
+- Confirm that supported media and sidecar metadata are recognized.
+- Confirm that files without defensible capture timestamps remain undated.
+- Confirm that originals are not moved or uploaded.
+
+### Calendar ICS
+
+- Cover UTC, TZID, floating-time, and all-day synthetic events.
+- Confirm that Timeline presentation preserves the source wall-clock evidence.
+- Confirm that an exclusive all-day end does not create an extra Timeline day.
+
+### Contacts VCF
+
+- Cover folded lines, multiple values, and Unicode in synthetic contacts.
+- Confirm that no date, relationship, or activity is invented.
+- Confirm that contact details remain only in the chosen local output.
+
+### Apple Mail MBOX
+
+- Export a mailbox with **Mailbox › Export Mailbox…** and select the resulting
+  `.mbox` package; the app must not require Full Disk Access to the live Mail
+  store.
+- Confirm that the preflight inspects package shape without reading message
+  bodies.
+- Confirm that extracted messages have valid frontmatter, deterministic
+  provenance hashes, readable bodies, and `networkUsed: false`.
+
+The optional preflight is:
+
+```sh
+npm run uat:mail-export
+```
+
+Its default search is limited to common user-export locations. Set
+`AMARA_UNFOLD_MAIL_UAT_ROOT` to add one explicit local diagnostic root. That
+root must never be committed or included in a public report.
+
+### Apple Music
+
+- Confirm that track, playlist, and membership catalogues remain complete for
+  the selected synthetic fixture.
+- Add Timeline events only where the source supplies a defensible `Date Added`.
+- Do not infer playlist creation dates or place timeless catalogue rows on the
+  Timeline.
+
+## Optional local status helper
+
+Run:
+
+```sh
+npm run uat:local-apps -- --portable
+```
+
+The helper inspects only Mail and Music reports it can find under the explicit
+`AMARA_UNFOLD_LOCAL_APP_UAT_ROOT` or the generic local default. It does not
+prove every release route and does not replace a visible candidate journey.
+Portable output removes evidence paths and candidate paths.
+
+## Public acceptance record
+
+Use a compact, non-sensitive record:
+
+```text
+amara Unfold local-app acceptance: PASS|FAIL|BLOCKED
+Version/build:
+Candidate SHA-256:
+Synthetic fixture:
+Routes checked:
+Visible rerun result:
+Cancellation result:
+Network used: false|unexpected
+Signing/notarization:
+Blocking defects:
+```
+
+Keep any test with personal exports private and local. Public acceptance must be
+reproducible with synthetic data shipped in, or generated by, the repository.

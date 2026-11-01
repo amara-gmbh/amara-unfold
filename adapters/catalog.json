@@ -1,0 +1,245 @@
+{
+  "$schema": "./catalog.schema.json",
+  "catalogVersion": 1,
+  "outputContract": "Amara Unfold Open Event Schema v1 Markdown with YAML frontmatter",
+  "adapters": [
+    {
+      "id": "photo-media-folder",
+      "label": "Photo and video metadata",
+      "provider": "Local media",
+      "moduleId": "photos",
+      "stage": "raw_export",
+      "format": "Image and video files",
+      "readiness": "ready",
+      "signatures": {
+        "anyExtensions": ["jpg", "jpeg", "heic", "png", "mov", "mp4"]
+      },
+      "commandTemplate": "amara-unfold extract photo-media-folder --source {source} --output <folder>",
+      "nextStep": "Extract timestamps, dimensions, device, GPS, hashes, and provenance into one open Markdown event per media file."
+    },
+    {
+      "id": "foreverlane-photo-markdown-v1",
+      "label": "Photo metadata Markdown",
+      "provider": "Open Markdown",
+      "moduleId": "photos",
+      "stage": "open_markdown",
+      "format": "Markdown + YAML frontmatter",
+      "readiness": "already_open",
+      "signatures": {
+        "allPaths": ["manifest.yaml", "README.md"],
+        "anyPaths": ["library/", "NORMALIZATION.md"]
+      },
+      "commandTemplate": null,
+      "nextStep": "Validate the Markdown substrate and keep it portable; do not extract it again."
+    },
+    {
+      "id": "apple-music-tsv",
+      "label": "Apple Music track metadata",
+      "provider": "Apple Music",
+      "moduleId": "apple-music",
+      "stage": "mixed",
+      "format": "Tab-separated track library",
+      "readiness": "ready",
+      "signatures": {
+        "allPaths": ["raw/library_tracks.tsv"]
+      },
+      "commandTemplate": "amara-unfold extract apple-music-tsv --source {source} --output <folder>",
+      "nextStep": "Create a Markdown track catalog plus daily Timeline summaries from explicit Date Added only. Last Played remains catalog metadata."
+    },
+    {
+      "id": "apple-music-local-library",
+      "label": "Apple Music local library",
+      "provider": "Apple Music",
+      "moduleId": "apple-music",
+      "stage": "raw_export",
+      "format": "Music.app library metadata (one-time read) or local audio folder",
+      "readiness": "ready",
+      "signatures": {
+        "anyExtensions": [
+          "mp3",
+          "m4a",
+          "aac",
+          "wav",
+          "aiff",
+          "aif",
+          "flac",
+          "alac"
+        ]
+      },
+      "commandTemplate": "amara-unfold extract apple-music-local-library --source {source} --output <folder>",
+      "nextStep": "Create separate track and playlist Markdown catalogs with playlist membership. Timeline uses explicit track Date Added only; Last Played and loose audio-file timestamps never become Timeline dates."
+    },
+    {
+      "id": "apple-music-markdown",
+      "label": "Apple Music Markdown library",
+      "provider": "Apple Music",
+      "moduleId": "apple-music",
+      "stage": "open_markdown",
+      "format": "Markdown directory",
+      "readiness": "already_open",
+      "signatures": {
+        "allPaths": ["00-overview.md", "playlists/", "years-released/"]
+      },
+      "commandTemplate": null,
+      "nextStep": "Validate and map the existing Markdown into the canonical music substrate; do not rebuild the library from pixels or proprietary storage."
+    },
+    {
+      "id": "airbnb-json-takeout",
+      "label": "Airbnb data export",
+      "provider": "Airbnb",
+      "moduleId": "airbnb",
+      "stage": "raw_export",
+      "format": "Airbnb JSON directory",
+      "readiness": "ready",
+      "signatures": {
+        "allPaths": ["json/reservations.json", "json/messages.json"],
+        "anyPaths": ["json/reviews.json", "json/profile_information.json"]
+      },
+      "commandTemplate": "amara-unfold extract airbnb-json-takeout --source {source} --output <folder>",
+      "nextStep": "Normalize every reservation status plus readable messages and reviews; inspect every JSON category and record exact reasons for anything deliberately kept out of Timeline."
+    },
+    {
+      "id": "banking-xlsx",
+      "label": "Banking Takeout",
+      "provider": "Bank export",
+      "moduleId": "banking",
+      "stage": "raw_export",
+      "format": "Transaction workbook (.xlsx, .xls, .ods)",
+      "readiness": "ready",
+      "signatures": {
+        "anyExtensions": ["xlsx", "xls", "ods"]
+      },
+      "commandTemplate": "amara-unfold extract banking-xlsx --source {source} --output <folder>",
+      "nextStep": "Recognize transaction columns, preserve every row in readable daily movement files, and add a compact monthly overview."
+    },
+    {
+      "id": "banking-csv",
+      "label": "Banking Takeout",
+      "provider": "Bank export",
+      "moduleId": "banking",
+      "stage": "raw_export",
+      "format": "Delimited transaction export (.csv)",
+      "readiness": "ready",
+      "signatures": {
+        "nameContains": ["bank", "banking", "umsatz", "transaction"],
+        "anyExtensions": ["csv"]
+      },
+      "commandTemplate": "amara-unfold extract banking-csv --source {source} --output <folder>",
+      "nextStep": "Recognize flexible comma, semicolon, tab, or pipe transaction columns, preserve every row in readable daily movement files, and add a compact monthly overview."
+    },
+    {
+      "id": "diary-docx",
+      "label": "Word diary",
+      "provider": "Microsoft Word",
+      "moduleId": "diary",
+      "stage": "raw_export",
+      "format": "Structured diary document (.docx)",
+      "readiness": "ready",
+      "signatures": {
+        "anyPaths": ["diary"],
+        "anyExtensions": ["docx"]
+      },
+      "commandTemplate": "amara-unfold extract diary-docx --source {source} --output <folder>",
+      "nextStep": "Read Word headings and verbatim paragraphs locally, preserving document order and heading-level date precision."
+    },
+    {
+      "id": "apple-mail-local",
+      "label": "Apple Mail exported mailbox",
+      "provider": "Apple Mail",
+      "moduleId": "mail",
+      "stage": "raw_export",
+      "format": "Exported Apple Mail .mbox mailbox",
+      "readiness": "ready",
+      "signatures": {
+        "anyExtensions": ["apple-mail-exported-mbox"]
+      },
+      "commandTemplate": "amara-unfold extract apple-mail-local --source {source} --output <folder>",
+      "nextStep": "Read an Apple Mail exported mailbox locally and emit one cleaned email Markdown event per message."
+    },
+    {
+      "id": "apple-calendar-local",
+      "label": "Apple Calendar local calendars",
+      "provider": "Apple Calendar",
+      "moduleId": "calendar",
+      "stage": "raw_export",
+      "format": "Local iCalendar (.ics) files",
+      "readiness": "ready",
+      "signatures": {
+        "anyExtensions": ["ics"]
+      },
+      "commandTemplate": "amara-unfold extract apple-calendar-local --source {source} --output <folder>",
+      "nextStep": "Read local iCalendar events and emit dated timeline Markdown with summary, location, organizer, attendees, and provenance."
+    },
+    {
+      "id": "apple-contacts-local",
+      "label": "Apple Contacts local cards",
+      "provider": "Apple Contacts",
+      "moduleId": "contacts",
+      "stage": "raw_export",
+      "format": "Local vCard (.vcf) files",
+      "readiness": "ready",
+      "signatures": {
+        "anyExtensions": ["vcf", "vcard"]
+      },
+      "commandTemplate": "amara-unfold extract apple-contacts-local --source {source} --output <folder>",
+      "nextStep": "Read local vCards and emit people/contact Markdown with names, organizations, birthdays, contact fields, and provenance; note bodies are not emitted by default."
+    },
+    {
+      "id": "google-photos-takeout",
+      "label": "Google Photos takeout",
+      "provider": "Google Takeout",
+      "moduleId": "photos",
+      "stage": "raw_export",
+      "format": "ZIP bundle with media and supplemental JSON",
+      "readiness": "ready",
+      "signatures": {
+        "archivePaths": ["Takeout/Google Fotos/", "Takeout/Google Photos/"]
+      },
+      "commandTemplate": "amara-unfold extract google-photos-takeout --source {source} --output <folder>",
+      "nextStep": "Read supplemental metadata directly inside the ZIP and emit photo events without copying media."
+    },
+    {
+      "id": "gmail-takeout",
+      "label": "Gmail takeout",
+      "provider": "Google Takeout",
+      "moduleId": "mail",
+      "stage": "raw_export",
+      "format": "MBOX inside ZIP",
+      "readiness": "ready",
+      "signatures": {
+        "archivePaths": ["Takeout/Gmail/"]
+      },
+      "commandTemplate": "amara-unfold extract gmail-takeout --source {source} --output <folder>",
+      "nextStep": "Stream MBOX messages directly from the ZIP and emit open email events without an online mail account."
+    },
+    {
+      "id": "youtube-takeout",
+      "label": "YouTube and YouTube Music takeout",
+      "provider": "Google Takeout",
+      "moduleId": "media",
+      "stage": "raw_export",
+      "format": "CSV/JSON inside ZIP",
+      "readiness": "ready",
+      "signatures": {
+        "archivePaths": [
+          "Takeout/YouTube und YouTube Music/",
+          "Takeout/YouTube and YouTube Music/"
+        ]
+      },
+      "commandTemplate": "amara-unfold extract youtube-takeout --source {source} --output <folder>",
+      "nextStep": "Normalize YouTube CSV rows such as subscriptions or history into portable web events."
+    },
+    {
+      "id": "google-maps",
+      "label": "Google Maps",
+      "provider": "Google Maps",
+      "moduleId": "google-maps",
+      "stage": "raw_export",
+      "format": "Google Maps export",
+      "readiness": "ready",
+      "signatures": {},
+      "commandTemplate": "amara-unfold extract google-maps --source {source} --output <folder>",
+      "nextStep": "Read Google Maps takeouts, standalone KMZ files, KMZ folders, saved-place CSV collections, or saved-places JSON locally and preserve the detected input format as provenance."
+    }
+  ]
+}
