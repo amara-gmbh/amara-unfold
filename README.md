@@ -26,6 +26,9 @@ own information more accessible without locking it into a proprietary format.
 
 ![The Scan view showing local application sources and planned routes](assets/screenshots/scan-application-sources.png)
 
+<img width="1600" height="900" alt="clipboard" src="https://github.com/user-attachments/assets/69d7f980-a2f3-4f4e-af8c-412fd11f1a5f" />
+
+
 ## What it does
 
 - Recognises supported formats from selected folders and exports.
