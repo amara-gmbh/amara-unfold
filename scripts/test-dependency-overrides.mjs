@@ -21,7 +21,7 @@ try {
     "ignored\n",
   );
   assert.deepEqual(await glob("tests/**/*.e2e.ts", { cwd: root }), [
-    "tests/nested/sample.e2e.ts",
+    path.join("tests", "nested", "sample.e2e.ts"),
   ]);
   assert.equal(
     minimatch("tests/nested/sample.e2e.ts", "tests/**/*.e2e.ts"),
