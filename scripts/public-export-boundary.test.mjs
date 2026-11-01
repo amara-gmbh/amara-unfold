@@ -93,6 +93,11 @@ test("public export strips canonical-only continuity tooling and commands", (t) 
     "synthetic unapproved top-level fixture\n",
   );
 
+  writeFileSync(
+    path.join(negative, "assets", "screenshots", "unreviewed.png"),
+    "synthetic unreviewed image",
+  );
+
   const audited = spawnSync(process.execPath, [auditScript, negative], {
     cwd: negative,
     encoding: "utf8",
@@ -102,4 +107,8 @@ test("public export strips canonical-only continuity tooling and commands", (t) 
   assert.match(audited.stderr, /private continuity tool is not public source/);
   assert.match(audited.stderr, /private-only package script is forbidden/);
   assert.match(audited.stderr, /top-level path is not in the public allowlist/);
+  assert.match(
+    audited.stderr,
+    /binary image is outside the reviewed asset allowlist/,
+  );
 });

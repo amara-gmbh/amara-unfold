@@ -177,7 +177,11 @@ function addFinding(filePath, message) {
 
 function isApprovedBinaryAsset(relativePath, extension) {
   return (
-    (relativePath === "assets/app-icon.png" && extension === ".png") ||
+    ([
+      "assets/app-icon.png",
+      "assets/screenshots/scan-application-sources.png",
+    ].includes(relativePath) &&
+      extension === ".png") ||
     ([".icns", ".ico", ".png"].includes(extension) &&
       relativePath.startsWith("apps/desktop/src-tauri/icons/"))
   );
@@ -223,7 +227,7 @@ function inspectFile(filePath) {
     if (!isApprovedBinaryAsset(relativePath, extension)) {
       addFinding(
         filePath,
-        "binary image is outside the reviewed application-icon folder",
+        "binary image is outside the reviewed asset allowlist",
       );
     }
     return;

@@ -22,6 +22,10 @@ you turn supported exports into files you can read, search and keep. It is a
 local-first desktop application and command-line tool, designed to make your
 own information more accessible without locking it into a proprietary format.
 
+## See amara Unfold
+
+![The Scan view showing local application sources and planned routes](assets/screenshots/scan-application-sources.png)
+
 ## What it does
 
 - Recognises supported formats from selected folders and exports.
