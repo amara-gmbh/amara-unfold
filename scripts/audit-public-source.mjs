@@ -130,6 +130,10 @@ const requiredPaths = [
 const approvedPublicEmails = new Set(["info@amara.gmbh"]);
 
 const textChecks = [
+  { label: "bank routing code in fixture", pattern: /BLZ\d{8}/ },
+  { label: "ATM terminal number in fixture", pattern: /GA NR\d{6,}/ },
+  { label: "possible Apple persistent ID", pattern: /\b[0-9A-F]{16}\b/ },
+  { label: "possible Apple persistent ID", pattern: /\\t[0-9A-F]{16}\b/ },
   {
     label: "absolute macOS user path",
     pattern: /\/Users\/(?!example\/)[A-Za-z0-9._-]+\//,

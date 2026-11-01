@@ -71,6 +71,24 @@ test("public export strips canonical-only continuity tooling and commands", (t) 
   });
   assert.equal(worktree.status, 0, worktree.stderr || worktree.stdout);
 
+  // Synthetic fragments exercise privacy checks without embedding complete IDs.
+  const fixturePath = path.join(exported, "docs", "privacy-audit-fixture.md");
+  for (const [fixture, label] of [
+    [["BLZ", "12345678"].join(""), /bank routing code in fixture/],
+    [["GA NR", "123456"].join(""), /ATM terminal number in fixture/],
+    [["ABCDEF01", "23456789"].join(""), /possible Apple persistent ID/],
+    [["\\t", "ABCDEF01", "23456789"].join(""), /possible Apple persistent ID/],
+  ]) {
+    writeFileSync(fixturePath, fixture);
+    const result = spawnSync(process.execPath, [auditScript, exported], {
+      encoding: "utf8",
+      env: { ...process.env, AMARA_AUDIT_GIT_WORKTREE: "1" },
+    });
+    assert.equal(result.status, 1, result.stdout);
+    assert.match(result.stderr, label);
+  }
+  rmSync(fixturePath);
+
   const negative = path.join(fixtureRoot, "negative");
   cpSync(exported, negative, { recursive: true });
   const forbiddenToolPath = path.join(negative, continuityTool);
