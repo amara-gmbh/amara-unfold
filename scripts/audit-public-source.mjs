@@ -316,7 +316,11 @@ if (!fs.existsSync(root) || !fs.statSync(root).isDirectory()) {
 }
 
 for (const entry of fs.readdirSync(root)) {
-  if (!publicRootAllowlist.has(entry)) {
+  const gitDirectory =
+    entry === ".git" &&
+    process.env.AMARA_AUDIT_GIT_WORKTREE === "1" &&
+    fs.lstatSync(path.join(root, entry)).isDirectory();
+  if (!publicRootAllowlist.has(entry) && !gitDirectory) {
     findings.push(`${entry}: top-level path is not in the public allowlist`);
   }
 }

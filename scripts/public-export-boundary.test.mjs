@@ -52,6 +52,23 @@ test("public export strips canonical-only continuity tooling and commands", (t) 
     assert.equal(Object.hasOwn(publicPackage.scripts ?? {}, scriptName), false);
   }
 
+  // Packaged source must not contain Git history. A deliberate CI worktree
+  // audit can skip the root .git directory only while history is checked separately.
+  mkdirSync(path.join(exported, ".git"));
+  const packagedGit = spawnSync(process.execPath, [auditScript, exported], {
+    encoding: "utf8",
+  });
+  assert.equal(packagedGit.status, 1, packagedGit.stdout);
+  assert.match(
+    packagedGit.stderr,
+    /top-level path is not in the public allowlist/,
+  );
+  const worktree = spawnSync(process.execPath, [auditScript, exported], {
+    encoding: "utf8",
+    env: { ...process.env, AMARA_AUDIT_GIT_WORKTREE: "1" },
+  });
+  assert.equal(worktree.status, 0, worktree.stderr || worktree.stdout);
+
   const negative = path.join(fixtureRoot, "negative");
   cpSync(exported, negative, { recursive: true });
   const forbiddenToolPath = path.join(negative, continuityTool);
@@ -77,6 +94,7 @@ test("public export strips canonical-only continuity tooling and commands", (t) 
   const audited = spawnSync(process.execPath, [auditScript, negative], {
     cwd: negative,
     encoding: "utf8",
+    env: { ...process.env, AMARA_AUDIT_GIT_WORKTREE: "1" },
   });
   assert.equal(audited.status, 1, audited.stdout);
   assert.match(audited.stderr, /private continuity tool is not public source/);

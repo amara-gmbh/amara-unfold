@@ -28,6 +28,8 @@ jobs:
         with:
           components: clippy, rustfmt
       - name: Audit public source and history
+        env:
+          AMARA_AUDIT_GIT_WORKTREE: "1"
         run: npm run audit:public && npm run audit:history
       - name: Install frontend dependencies
         run: npm ci
