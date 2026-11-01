@@ -186,6 +186,10 @@ function isApprovedBinaryAsset(relativePath, extension) {
       "assets/screenshots/scan-application-sources.png",
       "assets/screenshots/home.png",
       "assets/screenshots/source-recognition.png",
+      "assets/screenshots/all-events.png",
+      "assets/screenshots/photo-drafts.png",
+      "assets/screenshots/settings.png",
+      "assets/screenshots/help.png",
     ].includes(relativePath) &&
       extension === ".png") ||
     ([".icns", ".ico", ".png"].includes(extension) &&

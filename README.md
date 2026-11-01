@@ -24,15 +24,31 @@ own information more accessible without locking it into a proprietary format.
 
 ## See amara Unfold
 
-![The Scan view showing local application sources and planned routes](assets/screenshots/scan-application-sources.png)
+**Home** — an overview of your local workspace.
 
 ![amara Unfold home view](assets/screenshots/home.png)
 
-![amara Unfold recognising a synthetic photo and video source](assets/screenshots/source-recognition.png)
+**Scan** — choose a source and review its recognised format.
 
-*The source-recognition example uses synthetic demo data.*
+![Scan view recognising a synthetic photo and video source](assets/screenshots/source-recognition.png)
 
+**All events** — explore and filter your open timeline.
 
+![All events view with a synthetic example timeline](assets/screenshots/all-events.png)
+
+**Photo drafts** — review photo and video groupings.
+
+![Photo drafts view before any drafts have been created](assets/screenshots/photo-drafts.png)
+
+**Settings** — review appearance and local privacy settings.
+
+![Settings and privacy view with a synthetic database path](assets/screenshots/settings.png)
+
+**Help** — find the four-step workflow and guidance.
+
+![Help view with the four-step workflow](assets/screenshots/help.png)
+
+*Screenshots use synthetic demo data or an empty workspace.*
 
 ## What it does
 
