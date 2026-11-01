@@ -24,27 +24,27 @@ own information more accessible without locking it into a proprietary format.
 
 ## See amara Unfold
 
-**Home** — an overview of your local workspace.
+**Home** — see an overview of the local workspace, recent activity and available events. Unfold keeps the index on your device and lets you choose which sources and output to keep.
 
 ![amara Unfold home view](assets/screenshots/home.png)
 
-**Scan** — choose a source and review its recognised format.
+**Scan** — choose an export or folder, review the recognised format and select a separate destination for the generated Markdown. The original files remain in place.
 
 ![Scan view recognising a synthetic photo and video source](assets/screenshots/source-recognition.png)
 
-**All events** — explore and filter your open timeline.
+**All events** — browse generated events together, filter by source, date or status, and explore the timeline. Records retain references to their Markdown and source.
 
 ![All events view with a synthetic example timeline](assets/screenshots/all-events.png)
 
-**Photo drafts** — review photo and video groupings.
+**Photo drafts** — inspect proposed groups based on photo and video metadata. These drafts are separate from completed Markdown exports in All events.
 
 ![Photo drafts view before any drafts have been created](assets/screenshots/photo-drafts.png)
 
-**Settings** — review appearance and local privacy settings.
+**Settings** — choose light, dark or system appearance and review local processing, network, telemetry and index information.
 
 ![Settings and privacy view with a synthetic database path](assets/screenshots/settings.png)
 
-**Help** — find the four-step workflow and guidance.
+**Help** — follow the four-step workflow: choose a source, review its format, choose a destination, then create and review your open files. The guide also explains supported sources, privacy and troubleshooting.
 
 ![Help view with the four-step workflow](assets/screenshots/help.png)
 
