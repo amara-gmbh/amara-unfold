@@ -38,8 +38,11 @@ test("exposes usable custom window drag regions", async ({ page }) => {
     "data-tauri-drag-region",
     "deep",
   );
-  const logo = page.locator(".brand-lockup img");
-  await expect(logo).toHaveAttribute("src", "/brand/amara-logo.svg");
+  const logo = page.locator(".brand-lockup img:visible");
+  await expect(logo).toHaveAttribute(
+    "src",
+    /amara-unfold-flat-(cream|mocca)\.svg/,
+  );
   await expect
     .poll(() => logo.evaluate((image: HTMLImageElement) => image.naturalWidth))
     .toBeGreaterThan(0);
@@ -216,7 +219,7 @@ test("dark mode keeps the warmer coffee surface throughout", async ({
   await page.getByRole("button", { name: "Dark", exact: true }).click();
 
   const disconnected = page.getByRole("button", {
-    name: "No connection configured",
+    name: "Not included in this release",
   });
   await expect(disconnected).toBeVisible();
   expect(
@@ -385,7 +388,7 @@ test("Help documents the complete end-user contract", async ({ page }) => {
     page.getByRole("heading", { name: "Podcasts", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByText("subscriptions, saved episodes, listening history", {
+    page.getByText("podcast subscriptions and listening history", {
       exact: false,
     }),
   ).toBeVisible();
@@ -526,14 +529,14 @@ test("complete user journey scans, persists, and exposes evidence", async ({
     page.getByRole("heading", { name: "Photo event drafts" }),
   ).toBeVisible();
   const memoryToggle = page.getByRole("button", {
-    name: "Expand memory 2019-08-30 Jersey City",
+    name: /Expand memory.*Jersey City/,
   });
   await expect(memoryToggle).toHaveAttribute("aria-expanded", "false");
   await expect(page.getByText("What Unfold can say")).toBeHidden();
   await memoryToggle.click();
   await expect(
     page.getByRole("button", {
-      name: "Collapse memory 2019-08-30 Jersey City",
+      name: /Collapse memory.*Jersey City/,
     }),
   ).toHaveAttribute("aria-expanded", "true");
   await expect(page.getByText("What Unfold can say")).toBeVisible();
@@ -613,7 +616,8 @@ test("extracts every structured route from a multi-service takeout", async ({
   await batch.click();
   await expect(
     page.getByRole("status").filter({
-      hasText: "Done: saved 999 Markdown events across 3 recognized exports to",
+      hasText:
+        "Done: saved 999 new Markdown events across 3 recognized exports to",
     }),
   ).toBeVisible();
 });
@@ -1231,18 +1235,6 @@ test("lists local apps and enables ready local-app export routes", async ({
 test("local app access confirmation happens only when creating Markdown", async ({
   page,
 }) => {
-  await page.addInitScript(() => {
-    (
-      window as typeof window & { __amaraConfirmMessages?: string[] }
-    ).__amaraConfirmMessages = [];
-    window.confirm = (message?: string) => {
-      (
-        window as typeof window & { __amaraConfirmMessages: string[] }
-      ).__amaraConfirmMessages.push(String(message ?? ""));
-      return true;
-    };
-  });
-
   await page.goto("/?scenario=local-apps");
   await page.getByRole("button", { name: "Scan", exact: true }).click();
   await page.getByText("Choose from an application").click();
@@ -1268,15 +1260,9 @@ test("local app access confirmation happens only when creating Markdown", async 
       { exact: false },
     ),
   ).toBeVisible();
-  await expect
-    .poll(() =>
-      page.evaluate(
-        () =>
-          (window as typeof window & { __amaraConfirmMessages?: string[] })
-            .__amaraConfirmMessages?.length ?? 0,
-      ),
-    )
-    .toBe(0);
+  await expect(
+    page.getByRole("dialog", { name: "Confirm local extraction" }),
+  ).toHaveCount(0);
 
   await page.getByRole("button", { name: "Choose output folder" }).click();
   await page.evaluate(() => {
@@ -1286,33 +1272,16 @@ test("local app access confirmation happens only when creating Markdown", async 
     });
   });
   await page.getByRole("button", { name: "Create Markdown files" }).click();
-  await expect
-    .poll(() =>
-      page.evaluate(
-        () =>
-          (window as typeof window & { __amaraConfirmMessages?: string[] })
-            .__amaraConfirmMessages?.length ?? 0,
-      ),
-    )
-    .toBe(1);
-  await expect
-    .poll(() =>
-      page.evaluate(
-        () =>
-          (window as typeof window & { __amaraConfirmMessages?: string[] })
-            .__amaraConfirmMessages?.[0] ?? "",
-      ),
-    )
-    .toContain("one-time, read-only local Music export");
-  await expect
-    .poll(() =>
-      page.evaluate(
-        () =>
-          (window as typeof window & { __amaraConfirmMessages?: string[] })
-            .__amaraConfirmMessages?.[0] ?? "",
-      ),
-    )
-    .toContain("ask macOS to forget the Music Automation approval");
+  const consent = page.getByRole("dialog", {
+    name: "Confirm local extraction",
+  });
+  await expect(consent).toBeVisible();
+  await expect(consent).toContainText("one-time, read-only local Music export");
+  await expect(consent).toContainText(
+    "ask macOS to forget the Music Automation approval",
+  );
+  await expect(consent.getByRole("button", { name: "Cancel" })).toBeFocused();
+  await consent.getByRole("button", { name: "Continue extraction" }).click();
   await expect(
     page.getByRole("status").filter({
       hasText: "Music Automation approval was released after this export",
@@ -1486,7 +1455,7 @@ test("cancellation is explicit and preserves the last complete state", async ({
   await page.getByRole("button", { name: "Stop extraction" }).click();
   await expect(
     page.getByRole("status").filter({
-      hasText: "completed Markdown events remain valid",
+      hasText: "No new files were committed; previous exports are unchanged",
     }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Home", exact: true }).click();
@@ -1514,12 +1483,12 @@ test("expanding a lower memory uses the page scroll and keeps its header visible
   await page.getByRole("button", { name: "Photo drafts", exact: true }).click();
 
   const toggle = page.getByRole("button", {
-    name: "Expand memory 2019-08-17 Cluster 13",
+    name: /Expand memory.*Cluster 13/,
   });
   await toggle.evaluate((button: HTMLButtonElement) => button.click());
 
   const expandedToggle = page.getByRole("button", {
-    name: "Collapse memory 2019-08-17 Cluster 13",
+    name: /Collapse memory.*Cluster 13/,
   });
   await expect(expandedToggle).toHaveAttribute("aria-expanded", "true");
   await expect

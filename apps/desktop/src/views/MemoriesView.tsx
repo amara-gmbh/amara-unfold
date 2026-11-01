@@ -156,7 +156,6 @@ export function MemoriesView({ dashboard }: { dashboard: DashboardSnapshot }) {
                         <button
                           aria-controls={`evidence-${candidate.clusterKey}`}
                           aria-expanded={isExpanded}
-                          aria-label={`${isExpanded ? "Collapse" : "Expand"} memory ${candidate.dateLabel}${candidate.placeHint ? ` ${candidate.placeHint}` : ""}`}
                           className="candidate-summary"
                           onClick={() => {
                             pendingScroll.current = isExpanded
@@ -168,6 +167,9 @@ export function MemoriesView({ dashboard }: { dashboard: DashboardSnapshot }) {
                           }}
                           type="button"
                         >
+                          <span className="sr-only">
+                            {isExpanded ? "Collapse" : "Expand"} memory
+                          </span>
                           <div className="candidate-date">
                             <strong>{candidate.dateLabel.slice(8, 10)}</strong>
                             <span>
