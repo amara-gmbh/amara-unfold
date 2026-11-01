@@ -11,7 +11,7 @@
 
 Turn selected digital exports into readable Markdown, on your own computer.
 
-[Mac preview download](https://github.com/amara-gmbh/amara-unfold/releases/tag/v2026.9.21-mac-preview.1) · [amara GmbH](https://amara.gmbh) · [amara Unfold](https://amaraunfold.de)
+[Mac preview download](https://github.com/amara-gmbh/amara-unfold/releases/tag/v2026.9.21-mac-preview.2) · [amara GmbH](https://amara.gmbh) · [amara Unfold](https://amaraunfold.de)
 
 </div>
 
@@ -63,7 +63,7 @@ and the [privacy model](docs/privacy.md) for details and supported formats.
 
 ## Availability
 
-An [Apple silicon Mac preview](https://github.com/amara-gmbh/amara-unfold/releases/tag/v2026.9.21-mac-preview.1) is available.
+An [Apple silicon Mac preview](https://github.com/amara-gmbh/amara-unfold/releases/tag/v2026.9.21-mac-preview.2) is available.
 It is ad-hoc signed, not Apple Developer ID signed or notarized; macOS Gatekeeper
 may block it on first launch. The build instructions above create a local debug app.
 
