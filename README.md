@@ -65,8 +65,7 @@ signing and privacy checks for the exact release have been completed.
 
 ## Licence
 
-The existing source declares **GNU AGPL-3.0-or-later**. The final source
-candidate and third-party notices still require review before publication.
+The source is licensed under **GNU AGPL-3.0-or-later**. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md) for details and third-party notices.
 
 ---
 
