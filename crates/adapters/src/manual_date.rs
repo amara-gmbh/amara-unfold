@@ -360,7 +360,10 @@ mod tests {
         let raw = root.path().join("raw.eml");
         let assigned = apply_manual_date(&initial, "day", "2024-03-02", Some("09:45")).unwrap();
         assert_eq!(assigned.date_precision, "minute");
-        assert!(assigned.event_path.contains("/events/2024/03/"));
+        assert!(Path::new(&assigned.event_path)
+            .parent()
+            .unwrap()
+            .ends_with(Path::new("events").join("2024").join("03")));
         assert!(!initial.exists());
         let assigned_path = PathBuf::from(&assigned.event_path);
         let assigned_document = read_document(&assigned_path).unwrap();
@@ -381,7 +384,10 @@ mod tests {
         let undone = undo_manual_date(&updated_path).unwrap();
         assert_eq!(undone.date, "0000-00-00");
         assert_eq!(undone.date_precision, "unknown");
-        assert!(undone.event_path.contains("/events/0000/00/"));
+        assert!(Path::new(&undone.event_path)
+            .parent()
+            .unwrap()
+            .ends_with(Path::new("events").join("0000").join("00")));
         let final_document = read_document(Path::new(&undone.event_path)).unwrap();
         assert_eq!(final_document.event.id, assigned.event_id);
         assert_eq!(final_document.event.revisions.len(), 3);

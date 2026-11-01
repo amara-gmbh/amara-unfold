@@ -628,7 +628,7 @@ fn email_addresses(value: &str) -> Vec<String> {
         .split(|character: char| {
             character.is_whitespace()
                 || matches!(character, '<' | '>' | ',' | ';' | '(' | ')' | '"' | '\'')
-                || character == std::path::MAIN_SEPARATOR
+                || matches!(character, '/' | '\\')
         })
         .map(|part| {
             part.trim_matches(|character: char| {
@@ -686,6 +686,10 @@ mod tests {
     #[test]
     fn own_sender_or_sent_folder_classifies_as_sent() {
         let owners = email_addresses("/mail/person@example.com/Inbox/archive.pst");
+        assert_eq!(
+            owners,
+            email_addresses(r"C:\mail\person@example.com\Inbox\archive.pst")
+        );
         assert_eq!(
             classify_direction("Person <person@example.com>", "Mailbox/Inbox", &owners),
             "sent"
