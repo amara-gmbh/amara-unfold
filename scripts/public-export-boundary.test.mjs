@@ -57,6 +57,7 @@ test("public export strips canonical-only continuity tooling and commands", (t) 
   mkdirSync(path.join(exported, ".git"));
   const packagedGit = spawnSync(process.execPath, [auditScript, exported], {
     encoding: "utf8",
+    env: { ...process.env, AMARA_AUDIT_GIT_WORKTREE: "0" },
   });
   assert.equal(packagedGit.status, 1, packagedGit.stdout);
   assert.match(
